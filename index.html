@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Froyid Puthenpurackal Antony • Commercial Air Diver</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            ocean: {
+              900: '#030712',
+              800: '#0b1329',
+              700: '#112240',
+              600: '#1d3557',
+              cyan: '#00f2fe',
+              blue: '#4facfe'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #030712;
+      color: #f3f4f6;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    .glass-card {
+      background: rgba(17, 34, 64, 0.6);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .cyan-glow:hover {
+      box-shadow: 0 0 20px rgba(0, 242, 254, 0.3);
+    }
+
+    /* PUBLIC MODE: HIDE ALL ADMIN & EDITING CONTROLS BY DEFAULT */
+    body:not(.admin-active) .admin-only {
+      display: none !important;
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #030712;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #112240;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #00f2fe;
+    }
+  </style>
+</head>
+<body class="min-h-screen pb-20">
+
+  <!-- TOP NAVIGATION BAR -->
+  <header class="sticky top-0 z-40 glass-card border-b border-gray-800">
+    <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+      
+      <!-- Brand Box (Triple Click Secret to Unlock Admin) -->
+      <div class="flex items-center gap-3 cursor-pointer select-none" onclick="handleBrandClick()" title="Froyid Antony Portfolio">
+        <div class="w-10 h-10 rounded-lg bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-black font-bold text-xl">
+          <i class="fa-solid fa-water"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="font-bold text-lg text-white leading-none">FROYID ANTONY</h1>
+            <!-- Lock / Admin Active Badge -->
+            <button onclick="lockAdminMode(event)" class="admin-only px-2 py-0.5 rounded bg-red-500/20 text-red-400 border border-red-500/30 text-[10px] font-bold hover:bg-red-500/30 transition">
+              <i class="fa-solid fa-lock-open mr-1"></i> Admin Active (Lock)
+            </button>
+          </div>
+          <p class="text-xs text-cyan-400 font-medium">COMMERCIAL AIR DIVER</p>
+        </div>
+      </div>
+
+      <!-- Header Action Buttons (Admin Only) -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <button onclick="openModal('story-modal')" class="admin-only px-3 py-1.5 rounded-lg text-xs font-semibold bg-gray-800 hover:bg-gray-700 text-cyan-300 border border-cyan-500/30 transition flex items-center gap-1.5">
+          <i class="fa-solid fa-pen-nib"></i> <span class="hidden sm:inline">New Article</span>
+        </button>
+        <button onclick="openUploadModalWithTarget('feed')" class="admin-only px-3.5 py-1.5 rounded-lg text-xs font-bold bg-gradient-to-r from-cyan-400 to-blue-500 text-black hover:opacity-90 transition cyan-glow flex items-center gap-1.5">
+          <i class="fa-solid fa-cloud-arrow-up text-sm"></i> Upload Media
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 pt-8">
+
+    <!-- PROFILE HERO HEADER -->
+    <section class="glass-card rounded-2xl p-6 md:p-8 mb-8 border border-gray-800 shadow-2xl">
+      <div class="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8">
+        
+        <!-- Profile Picture -->
+        <div class="relative group">
+          <div class="w-32 h-32 md:w-36 md:h-36 rounded-full p-1 bg-gradient-to-tr from-cyan-400 via-blue-500 to-indigo-500 overflow-hidden">
+            <img id="profile-avatar" src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=600&q=80" alt="Froyid Antony" class="w-full h-full object-cover rounded-full">
+          </div>
+          <!-- Clickable Edit Camera Badge (Admin Only) -->
+          <button onclick="openModal('edit-profile-modal')" class="admin-only absolute bottom-1 right-1 bg-cyan-400 text-black p-2.5 rounded-full text-xs font-bold shadow-lg hover:bg-cyan-300 transition cursor-pointer" title="Change Avatar & Edit Profile">
+            <i class="fa-solid fa-camera"></i>
+          </button>
+        </div>
+
+        <!-- Bio & Details -->
+        <div class="flex-1 text-center md:text-left">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-3">
+            <div>
+              <div class="flex items-center justify-center md:justify-start gap-2">
+                <h2 id="profile-name" class="text-2xl md:text-3xl font-extrabold text-white">Froyid Puthenpurackal Antony</h2>
+                <span id="profile-badge" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">Class 2 Air Diver</span>
+              </div>
+              <p id="profile-tagline" class="text-sm text-cyan-400 font-medium mt-1">Marine Construction • Power-Plant Intakes • Ship Maintenance • Coral Translocation</p>
+            </div>
+
+            <div class="flex items-center justify-center gap-2">
+              <button onclick="openModal('edit-profile-modal')" class="admin-only px-4 py-2 rounded-lg text-xs font-semibold bg-gray-800 hover:bg-gray-700 text-white border border-gray-700 transition">
+                <i class="fa-solid fa-user-pen mr-1"></i> Edit Profile
+              </button>
+              <button onclick="switchTab('about')" class="px-4 py-2 rounded-lg text-xs font-semibold bg-cyan-900/40 hover:bg-cyan-900/60 text-cyan-300 border border-cyan-500/30 transition">
+                <i class="fa-solid fa-paper-plane mr-1"></i> View CV
+              </button>
+            </div>
+          </div>
+
+          <!-- Quick Stats Row -->
+          <div class="grid grid-cols-3 gap-4 my-4 p-3 rounded-xl bg-gray-900/60 border border-gray-800/80 text-center">
+            <div>
+              <p class="text-xl md:text-2xl font-black text-cyan-400">4+ Yrs</p>
+              <p class="text-[11px] text-gray-400 uppercase tracking-wider">Experience</p>
+            </div>
+            <div>
+              <p class="text-xl md:text-2xl font-black text-blue-400">35m</p>
+              <p class="text-[11px] text-gray-400 uppercase tracking-wider">Class 2 Rating</p>
+            </div>
+            <div>
+              <p class="text-xl md:text-2xl font-black text-indigo-400">6 Projects</p>
+              <p class="text-[11px] text-gray-400 uppercase tracking-wider">India & Qatar</p>
+            </div>
+          </div>
+
+          <p id="profile-bio" class="text-sm text-gray-300 leading-relaxed mb-3">
+            Commercial air diver with 4+ years of experience across marine construction, power-plant intake operations, and ship maintenance in India and Qatar. Experienced in tetrapod placement, HDPE pipeline laying, airlift debris removal, and Broco cutting.
+          </p>
+
+          <div class="flex flex-wrap items-center justify-center md:justify-start gap-4 text-xs text-gray-400">
+            <span id="profile-location"><i class="fa-solid fa-location-dot text-cyan-400 mr-1"></i> Kerala, India</span>
+            <span id="profile-gear"><i class="fa-solid fa-mask-snorkel text-blue-400 mr-1"></i> KMB-18B & Surface-Supply Equipment</span>
+            <span id="profile-cert"><i class="fa-solid fa-shield-halved text-indigo-400 mr-1"></i> Inter Dive Class 2 Air Diver (#2019)</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- NAVIGATION TABS -->
+    <div class="flex items-center justify-center border-b border-gray-800 mb-6 gap-2 md:gap-8 overflow-x-auto text-xs md:text-sm">
+      <button id="tab-explore" onclick="switchTab('explore')" class="tab-btn active py-3 px-4 font-bold border-b-2 border-cyan-400 text-cyan-400 flex items-center gap-2 whitespace-nowrap">
+        <i class="fa-solid fa-border-all"></i> EXPLORE FEED
+      </button>
+      <button id="tab-logs" onclick="switchTab('logs')" class="tab-btn py-3 px-4 font-semibold text-gray-400 hover:text-white border-b-2 border-transparent flex items-center gap-2 whitespace-nowrap">
+        <i class="fa-solid fa-clipboard-list"></i> DIVE LOGS & PROJECTS
+      </button>
+      <button id="tab-stories" onclick="switchTab('stories')" class="tab-btn py-3 px-4 font-semibold text-gray-400 hover:text-white border-b-2 border-transparent flex items-center gap-2 whitespace-nowrap">
+        <i class="fa-solid fa-book-open"></i> STORIES & ARTICLES
+      </button>
+      <button id="tab-reels" onclick="switchTab('reels')" class="tab-btn py-3 px-4 font-semibold text-gray-400 hover:text-white border-b-2 border-transparent flex items-center gap-2 whitespace-nowrap">
+        <i class="fa-solid fa-film"></i> REELS & SHORTS
+      </button>
+      <button id="tab-about" onclick="switchTab('about')" class="tab-btn py-3 px-4 font-semibold text-gray-400 hover:text-white border-b-2 border-transparent flex items-center gap-2 whitespace-nowrap">
+        <i class="fa-solid fa-address-card"></i> ABOUT & CV
+      </button>
+    </div>
+
+    <!-- TAB CONTENT SECTIONS -->
+
+    <!-- 1. EXPLORE FEED TAB -->
+    <section id="section-explore" class="tab-section">
+      <div id="media-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"></div>
+    </section>
+
+    <!-- 2. DIVE LOGS & PROJECTS TAB -->
+    <section id="section-logs" class="tab-section hidden">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-lg font-bold text-white flex items-center gap-2">
+          <i class="fa-solid fa-compass text-cyan-400"></i> Commercial Dive Projects
+        </h3>
+        <button onclick="openModal('divelog-modal')" class="admin-only px-3 py-1.5 rounded-lg text-xs font-semibold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 hover:bg-cyan-500/30">
+          <i class="fa-solid fa-plus mr-1"></i> Add Dive Log
+        </button>
+      </div>
+      <div id="logs-container" class="space-y-4"></div>
+    </section>
+
+    <!-- 3. STORIES & ARTICLES TAB -->
+    <section id="section-stories" class="tab-section hidden">
+      <div id="stories-container" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+    </section>
+
+    <!-- 4. REELS & SHORTS TAB -->
+    <section id="section-reels" class="tab-section hidden">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-lg font-bold text-white flex items-center gap-2">
+          <i class="fa-solid fa-clapperboard text-cyan-400"></i> Vertical Reels & Video Shorts
+        </h3>
+        <button onclick="openUploadModalWithTarget('reels')" class="admin-only px-3.5 py-1.5 rounded-lg text-xs font-bold bg-gradient-to-r from-cyan-400 to-blue-500 text-black hover:opacity-90 transition flex items-center gap-1.5">
+          <i class="fa-solid fa-plus"></i> Upload Reel Video
+        </button>
+      </div>
+      <div id="reels-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4"></div>
+    </section>
+
+    <!-- 5. ABOUT & CV TAB -->
+    <section id="section-about" class="tab-section hidden">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-2 space-y-6">
+          <div class="glass-card rounded-xl p-6 border border-gray-800">
+            <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+              <i class="fa-solid fa-award text-cyan-400"></i> Professional Profile
+            </h3>
+            <p class="text-sm text-gray-300 leading-relaxed mb-4">
+              Commercial air diver with 4+ years of experience across marine construction, power-plant intake operations and ship maintenance in India and Qatar. Experienced in tetrapod and concrete-block placement, HDPE pipeline work, airlift debris removal and hull cleaning. Works to dive plans, toolbox talks and site HSE procedures, coordinating with surface, crane and barge teams.
+            </p>
+            <h4 class="text-sm font-bold text-cyan-400 mb-2">Core Capabilities:</h4>
+            <div class="flex flex-wrap gap-2 text-xs">
+              <span class="px-2.5 py-1 rounded-md bg-gray-900 text-gray-300 border border-gray-800">Commercial Air Diving</span>
+              <span class="px-2.5 py-1 rounded-md bg-gray-900 text-gray-300 border border-gray-800">Tetrapod & Block Placement</span>
+              <span class="px-2.5 py-1 rounded-md bg-gray-900 text-gray-300 border border-gray-800">HDPE Pipeline Laying</span>
+              <span class="px-2.5 py-1 rounded-md bg-gray-900 text-gray-300 border border-gray-800">Airlift & Suction Removal</span>
+              <span class="px-2.5 py-1 rounded-md bg-gray-900 text-gray-300 border border-gray-800">Broco Underwater Cutting</span>
+              <span class="px-2.5 py-1 rounded-md bg-gray-900 text-gray-300 border border-gray-800">Hull & Propeller Polishing</span>
+              <span class="px-2.5 py-1 rounded-md bg-gray-900 text-gray-300 border border-gray-800">Coral Translocation</span>
+            </div>
+          </div>
+
+          <div class="glass-card rounded-xl p-6 border border-gray-800">
+            <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+              <i class="fa-solid fa-briefcase text-blue-400"></i> Work Experience
+            </h3>
+            
+            <div class="space-y-6 border-l-2 border-cyan-500/30 pl-4 ml-2">
+              <div>
+                <span class="text-xs font-bold text-cyan-400 uppercase">Oct 2025 - Jan 2026</span>
+                <h4 class="text-sm font-bold text-white">Diver - Breakwater Construction | Ocean Tec</h4>
+                <p class="text-xs text-gray-400">Veraval, Gujarat, India</p>
+                <p class="text-xs text-gray-300 mt-1">Carried out tetrapod placement for breakwater construction works. Supported underwater positioning and stability checks in nearshore conditions.</p>
+              </div>
+
+              <div>
+                <span class="text-xs font-bold text-cyan-400 uppercase">Mar 2025 - Apr 2025</span>
+                <h4 class="text-sm font-bold text-white">Marine Construction Diver - Temporary Jetty Project</h4>
+                <p class="text-xs text-gray-400">Chennai, Tamil Nadu, India</p>
+                <p class="text-xs text-gray-300 mt-1">Performed underwater block placement for a temporary jetty at a water distillation plant. Coordinated with surface crane and barge teams following site HSE procedures.</p>
+              </div>
+
+              <div>
+                <span class="text-xs font-bold text-cyan-400 uppercase">Jun 2022 - Jun 2024</span>
+                <h4 class="text-sm font-bold text-white">Commercial Air Diver | Tecotrex Welding Marine & QEWC</h4>
+                <p class="text-xs text-gray-400">Ras Abu Fontas power plant, Qatar</p>
+                <p class="text-xs text-gray-300 mt-1">Supported marine and intake-system operations. Participated in laying HDPE pipelines for main intake chlorination. Removed debris from drum screens using airlift and suction methods.</p>
+              </div>
+
+              <div>
+                <span class="text-xs font-bold text-cyan-400 uppercase">Jan 2022 - Feb 2022</span>
+                <h4 class="text-sm font-bold text-white">Diver - Coral Translocation Project | Zoological Survey of India</h4>
+                <p class="text-xs text-gray-400">Narara Reef, Gulf of Kachchh, Gujarat</p>
+                <p class="text-xs text-gray-300 mt-1">Worked on Government of India-approved ZSI-IOCL coral translocation project. Assisted with safe removal, handling, and relocation of live corals to designated reef sites.</p>
+              </div>
+
+              <div>
+                <span class="text-xs font-bold text-cyan-400 uppercase">Jan 2020 - Aug 2021</span>
+                <h4 class="text-sm font-bold text-white">Diver - Ship Maintenance | Interdive Pvt. Ltd.</h4>
+                <p class="text-xs text-gray-400">Kochi, India</p>
+                <p class="text-xs text-gray-300 mt-1">Carried out underwater hull and bottom cleaning, propeller polishing, and vessel inspection in port and nearshore environments.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-6">
+          <div class="glass-card rounded-xl p-6 border border-gray-800">
+            <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+              <i class="fa-solid fa-graduation-cap text-indigo-400"></i> Certifications
+            </h3>
+            <div class="space-y-3 text-xs">
+              <div class="p-3 bg-gray-900/60 rounded-lg border border-gray-800">
+                <p class="font-bold text-white">Air Diving Course Certificate (Class 2)</p>
+                <p class="text-gray-400">Inter Dive Diving Services Pvt. Ltd. (Dec 2019)</p>
+                <p class="text-cyan-400 mt-1">Qualified to 35m on KMB-18B, Surface-Supply & SCUBA</p>
+              </div>
+              <div class="p-3 bg-gray-900/60 rounded-lg border border-gray-800">
+                <p class="font-bold text-white">Broco Underwater Cutting</p>
+                <p class="text-gray-400">Certified Operator</p>
+              </div>
+              <div class="p-3 bg-gray-900/60 rounded-lg border border-gray-800">
+                <p class="font-bold text-white">PADI Open Water Diver</p>
+                <p class="text-gray-400">Issued Nov 2019</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass-card rounded-xl p-6 border border-gray-800">
+            <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+              <i class="fa-solid fa-address-book text-cyan-400"></i> Contact Info
+            </h3>
+            <div class="space-y-3 text-sm">
+              <a href="tel:+917994336700" class="flex items-center gap-3 p-3 rounded-lg bg-gray-900/60 hover:bg-gray-800 transition text-gray-300">
+                <i class="fa-solid fa-phone text-cyan-400 text-base"></i>
+                <div>
+                  <p class="text-[10px] text-gray-400 uppercase">Phone / WhatsApp</p>
+                  <p class="font-medium text-white">+91 7994336700</p>
+                </div>
+              </a>
+              <a href="mailto:froyid333@gmail.com" class="flex items-center gap-3 p-3 rounded-lg bg-gray-900/60 hover:bg-gray-800 transition text-gray-300">
+                <i class="fa-solid fa-envelope text-blue-400 text-base"></i>
+                <div>
+                  <p class="text-[10px] text-gray-400 uppercase">Email</p>
+                  <p class="font-medium text-white">froyid333@gmail.com</p>
+                </div>
+              </a>
+              <div class="flex items-center gap-3 p-3 rounded-lg bg-gray-900/60 text-gray-300">
+                <i class="fa-solid fa-earth-asia text-indigo-400 text-base"></i>
+                <div>
+                  <p class="text-[10px] text-gray-400 uppercase">Location & Status</p>
+                  <p class="font-medium text-white">Kerala, India (Available Immediately)</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MODALS -->
+
+  <!-- 1. EDIT PROFILE MODAL -->
+  <div id="edit-profile-modal" class="modal-backdrop fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div class="glass-card w-full max-w-lg rounded-2xl p-6 border border-gray-800 max-h-[90vh] overflow-y-auto">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-lg font-bold text-white">Edit Profile & Avatar Photo</h3>
+        <button onclick="closeModal('edit-profile-modal')" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+      </div>
+      <form id="form-edit-profile" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-gray-400 mb-1">Full Name</label>
+          <input type="text" id="edit-name" class="w-full bg-gray-900 border border-gray-800 rounded-lg p-2.5 text-sm text-white focus:border-cyan-400 outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-400 mb-1">Title Badge</label>
+          <input type="text" id="edit-badge" class="w-full bg-gray-900 border border-gray-800 rounded-lg p-2.5 text-sm text-white focus:border-cyan-400 outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-400 mb-1">Tagline</label>
+          <input type="text" id="edit-tagline" class="w-full bg-gray-900 border border-gray-800 rounded-lg p-2.5 text-sm text-white focus:border-cyan-400 outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-400 mb-1">Bio</label>
+          <textarea id="edit-bio" rows="3" class="w-full bg-gray-900 border border-gray-800 rounded-lg p-2.5 text-sm text-white focus:border-cyan-400 outline-none"></textarea>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-gray-400 mb-1">Location</label>
+            <input type="text" id="edit-location" class="w-full bg-gray-900 border border-gray-800 rounded-lg p-2.5 text-sm text-white focus:border-cyan-400 outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-400 mb-1">Gear & Equipment</label>
+            <input type="text" id="edit-gear" class="w-full bg-gray-900 border border-gray-800 rounded-lg p-2.5 text-sm text-white focus:border-cyan-400 outline-none">
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-400 mb-1">Replace Profile Avatar Photo</label>
+          <input type="file" id="edit-avatar-file" accept="image/*" class="w-full bg-gray-900 border border-gray-800 rounded-lg p-2 text-xs text-gray-400">
+        </div>
+        <div class="flex justify-end gap-3 pt-2">
+          <button type="button" onclick="closeModal('edit-profile-modal')" class="px-4 py-2 rounded-lg text-xs font-semibold bg-gray-800 text-gray-300">Cancel</button>
+          <button type="submit" class="px-5 py-2 rounded-lg text-xs font-bold bg-cyan-400 text-black">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 2. UPLOAD MEDIA MODAL -->
+  <div id="upload-modal" class="modal-backdrop fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div class="glass-card w-full max-w-lg rounded-2xl p-6 border border-gray-800 max-h-[90vh] overflow-y-auto">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-lg font-bold text-white">Upload Marine Photo or Video</h3>
+        <button onclick="closeModal('upload-modal')" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+      </div>
+      <form id="form-upload-media" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-gray-400 mb-1">Select File (Image or Video)</label>
+          <input type="file" id="upload-file" accept="image/*,video/*" required class="w-full bg-gray-900 border border-gray-800 rounded-lg p-2 text-xs text-gray-300">
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-gray-400 mb-1">Target Section</label>
+            <select id="upload-target" class="w-full bg-gray-900 border border-gray-800 rounded-lg p-2.5 text-sm text-white outline-none">
+              <option value="feed">Explore Feed Grid</option>
+              <option value="reels">Reels & Vertical Videos</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-400 mb-1">Depth (e.g. 18m)</label>
+            <input type="text" id="upload-depth" placeholder="18m" class="w-full bg-gray-900 border border-gray-800 rounded-lg p-2.5 text-sm text-white outline-none">
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-400 mb-1">Location / Site Name</label>
+          <input type="text" id="upload-location" placeholder="Veraval, Gujarat" class="w-full bg-gray-900 border border-gray-800 rounded-lg p-2.5 text-sm text-white outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-400 mb-1">Caption / Description</label>
+          <textarea id="upload-caption" rows="3" placeholder="Describe the underwater operation..." class="w-full bg-gray-900 border border-gray-800 rounded-lg p-2.5 text-sm text-white outline-none"></textarea>
+        </div>
+        <div class="flex justify-end gap-3 pt-2">
+          <button type="button" onclick="closeModal('upload-modal')" class="px-4 py-2 rounded-lg text-xs font-semibold bg-gray-800 text-gray-300">Cancel</button>
+          <button type="submit" class="px-5 py-2 rounded-lg text-xs font-bold bg-cyan-400 text-black">Publish</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 3. EDIT MEDIA / POST MODAL -->
+  <div id="edit-media-modal" class="modal-backdrop fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div class="glass-card w-full max-w-lg rounded-2xl p-6 border border-gray-800 max-h-[90vh] overflow-y-auto">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-lg font-bold text-white">Edit Media Post & Details</h3>
+        <button onclick="closeModal('edit-media-modal')" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+      </div>
+      <form id="form-edit-media" class="space-y-4">
+        <input type="hidden" id="edit-media-id">
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-gray-400 mb-1">Target Section</label>
+            <select id="edit-media-target" class="w-full bg-gray-900 border border-gray-800 rounded-lg p-2.5 text-sm text-white outline-none">
+              <option value="feed">Explore Feed Grid</option>
+              <option value="reels">Reels & Vertical Videos</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-400 mb-1">Depth (e.g. 18m)</label>
+            <input type="text" id="edit-media-depth" class="w-full bg-gray-900 border border-gray-800 rounded-lg p-2.5 text-sm text-white outline-none">
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-400 mb-1">Location / Site Name</label>
+          <input type="text" id="edit-media-location" class="w-full bg-gray-900 border border-gray-800 rounded-lg p-2.5 text-sm text-white outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-400 mb-1">Caption / Description</label>
+          <textarea id="edit-media-caption" rows="3" class="w-full bg-gray-900 border border-gray-800 rounded-lg p-2.5 text-sm text-white outline-none"></textarea>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-400 mb-1">Replace Image or Video File (Optional)</label>
+          <input type="file" id="edit-media-file" accept="image/*,video/*" class="w-full bg-gray-900 border border-gray-800 rounded-lg p-2 text-xs text-gray-300">
+        </div>
+        <div class="flex justify-end gap-3 pt-2">
+          <button type="button" onclick="closeModal('edit-media-modal')" class="px-4 py-2 rounded-lg text-xs font-semibold bg-gray-800 text-gray-300">Cancel</button>
+          <button type="submit" class="px-5 py-2 rounded-lg text-xs font-bold bg-cyan-400 text-black">Update Post</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 4. ADD / EDIT DIVE LOG MODAL -->
+  <div id="divelog-modal" class="modal-backdrop fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div class="glass-card w-full max-w-lg rounded-2xl p-6 border border-gray-800 max-h-[90vh] overflow-y-auto">
+      <div class="flex justify-between items-center mb-4">
+        <h3 id="log-modal-heading" class="text-lg font-bold text-white">Add New Commercial Dive Log</h3>
+        <button onclick="closeModal('divelog-modal')" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+      </div>
+      <form id="form-add-divelog" class="space-y-4">
+        <input type="hidden" id="log-edit-id">
+        <div>
+          <label class="block text-xs font-semibold text-gray-400 mb-1">Project Name / Task</label>
+          <input type="text" id="log-title" required placeholder="Tetrapod Placement Work" class="w-full bg-gray-900 border border-gray-800 rounded-lg p-2.5 text-sm text-white outline-none">
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-gray-400 mb-1">Company / Client</label>
+            <input type="text" id="log-client" placeholder="Ocean Tec" class="w-full bg-gray-900 border border-gray-800 rounded-lg p-2.5 text-sm text-white outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-400 mb-1">Location</label>
+            <input type="text" id="log-location" placeholder="Veraval, Gujarat" class="w-full bg-gray-900 border border-gray-800 rounded-lg p-2.5 text-sm text-white outline-none">
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-gray-400 mb-1">Max Depth</label>
+            <input type="text" id="log-depth" placeholder="18m" class="w-full bg-gray-900 border border-gray-800 rounded-lg p-2.5 text-sm text-white outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-400 mb-1">Equipment Used</label>
+            <input type="text" id="log-gear" placeholder="KMB-18B / Air Supply" class="w-full bg-gray-900 border border-gray-800 rounded-lg p-2.5 text-sm text-white outline-none">
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-400 mb-1">Operation Details</label>
+          <textarea id="log-notes" rows="3" placeholder="Details of positioning, stability checks, safety procedures..." class="w-full bg-gray-900 border border-gray-800 rounded-lg p-2.5 text-sm text-white outline-none"></textarea>
+        </div>
+        <div class="flex justify-end gap-3 pt-2">
+          <button type="button" onclick="closeModal('divelog-modal')" class="px-4 py-2 rounded-lg text-xs font-semibold bg-gray-800 text-gray-300">Cancel</button>
+          <button type="submit" class="px-5 py-2 rounded-lg text-xs font-bold bg-cyan-400 text-black">Save Dive Log</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 5. ADD / EDIT STORY / ARTICLE MODAL -->
+  <div id="story-modal" class="modal-backdrop fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div class="glass-card w-full max-w-lg rounded-2xl p-6 border border-gray-800 max-h-[90vh] overflow-y-auto">
+      <div class="flex justify-between items-center mb-4">
+        <h3 id="story-modal-heading" class="text-lg font-bold text-white">Publish New Article / Story</h3>
+        <button onclick="closeModal('story-modal')" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+      </div>
+      <form id="form-add-story" class="space-y-4">
+        <input type="hidden" id="story-edit-id">
+        <div>
+          <label class="block text-xs font-semibold text-gray-400 mb-1">Article Title</label>
+          <input type="text" id="story-title" required placeholder="Coral Translocation Techniques at Narara Reef" class="w-full bg-gray-900 border border-gray-800 rounded-lg p-2.5 text-sm text-white outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-400 mb-1">Banner Image (Upload or Replace)</label>
+          <input type="file" id="story-file" accept="image/*" class="w-full bg-gray-900 border border-gray-800 rounded-lg p-2 text-xs text-gray-300">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-400 mb-1">Article Body</label>
+          <textarea id="story-body" rows="6" required placeholder="Write your expedition experience or engineering article here..." class="w-full bg-gray-900 border border-gray-800 rounded-lg p-2.5 text-sm text-white outline-none"></textarea>
+        </div>
+        <div class="flex justify-end gap-3 pt-2">
+          <button type="button" onclick="closeModal('story-modal')" class="px-4 py-2 rounded-lg text-xs font-semibold bg-gray-800 text-gray-300">Cancel</button>
+          <button type="submit" class="px-5 py-2 rounded-lg text-xs font-bold bg-cyan-400 text-black">Publish Story</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ARTICLE READER MODAL -->
+  <div id="story-reader-modal" class="modal-backdrop fixed inset-0 z-50 bg-black/90 backdrop-blur-xl hidden flex items-center justify-center p-4">
+    <div class="relative w-full max-w-2xl glass-card rounded-2xl overflow-hidden border border-gray-800 p-6 max-h-[90vh] overflow-y-auto">
+      <button onclick="closeModal('story-reader-modal')" class="absolute top-4 right-4 z-10 w-8 h-8 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-black">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <img id="reader-img" src="" class="w-full h-56 object-cover rounded-xl mb-4 border border-gray-800">
+      <span class="px-2.5 py-1 rounded bg-cyan-500/20 text-cyan-300 text-xs font-bold border border-cyan-500/30 uppercase">Diving Article</span>
+      <h3 id="reader-title" class="text-xl font-bold text-white mt-2 mb-3"></h3>
+      <div id="reader-body" class="text-sm text-gray-300 leading-relaxed space-y-3 whitespace-pre-line mb-6"></div>
+      <div class="admin-only flex justify-end gap-2 border-t border-gray-800 pt-4">
+        <button id="reader-edit-btn" class="px-4 py-2 rounded-lg text-xs font-bold bg-cyan-400 text-black flex items-center gap-1.5">
+          <i class="fa-solid fa-pen"></i> Edit Article
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIVE LOG DETAIL MODAL -->
+  <div id="log-detail-modal" class="modal-backdrop fixed inset-0 z-50 bg-black/90 backdrop-blur-xl hidden flex items-center justify-center p-4">
+    <div class="relative w-full max-w-lg glass-card rounded-2xl overflow-hidden border border-gray-800 p-6 max-h-[90vh] overflow-y-auto">
+      <button onclick="closeModal('log-detail-modal')" class="absolute top-4 right-4 z-10 w-8 h-8 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-black">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <span id="log-detail-client" class="px-2.5 py-1 rounded bg-cyan-500/20 text-cyan-300 text-xs font-bold border border-cyan-500/30 uppercase">Client Name</span>
+      <h3 id="log-detail-title" class="text-lg font-bold text-white mt-2 mb-1"></h3>
+      <p class="text-xs text-gray-400 mb-4"><i class="fa-solid fa-location-dot text-cyan-400 mr-1"></i><span id="log-detail-location"></span> • Depth: <strong id="log-detail-depth" class="text-cyan-300"></strong></p>
+      
+      <div class="p-3 bg-gray-900/80 rounded-lg border border-gray-800 text-xs text-gray-300 mb-4 font-mono">
+        <i class="fa-solid fa-screwdriver-wrench text-blue-400 mr-1"></i> Gear: <span id="log-detail-gear"></span>
+      </div>
+
+      <h4 class="text-xs font-bold text-cyan-400 uppercase mb-1">Operation Report</h4>
+      <p id="log-detail-notes" class="text-sm text-gray-300 leading-relaxed whitespace-pre-line mb-6"></p>
+
+      <div class="admin-only flex justify-end gap-2 border-t border-gray-800 pt-4">
+        <button id="log-detail-edit-btn" class="px-4 py-2 rounded-lg text-xs font-bold bg-cyan-400 text-black flex items-center gap-1.5">
+          <i class="fa-solid fa-pen"></i> Edit Dive Log
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIGHTBOX DETAIL VIEWER MODAL -->
+  <div id="lightbox-modal" class="modal-backdrop fixed inset-0 z-50 bg-black/90 backdrop-blur-xl hidden flex items-center justify-center p-4">
+    <div class="relative w-full max-w-4xl glass-card rounded-2xl overflow-hidden border border-gray-800 flex flex-col md:flex-row max-h-[90vh]">
+      <button onclick="closeModal('lightbox-modal')" class="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-black">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <!-- Media Preview Area -->
+      <div id="lightbox-media-container" class="w-full md:w-2/3 bg-black flex items-center justify-center min-h-[300px] md:min-h-[450px]"></div>
+
+      <!-- Sidebar Info Area -->
+      <div class="w-full md:w-1/3 p-6 flex flex-col justify-between bg-gray-900/80 border-t md:border-t-0 md:border-l border-gray-800 overflow-y-auto">
+        <div>
+          <div class="flex items-center gap-2 text-xs font-bold text-cyan-400 mb-2">
+            <i class="fa-solid fa-location-dot"></i>
+            <span id="lightbox-location">Veraval, Gujarat</span>
+          </div>
+          <h3 id="lightbox-title" class="text-lg font-bold text-white mb-2">Operation Details</h3>
+          <p id="lightbox-caption" class="text-sm text-gray-300 leading-relaxed">Caption details will appear here...</p>
+        </div>
+
+        <div class="mt-6 pt-4 border-t border-gray-800 text-xs text-gray-400 flex justify-between items-center gap-2">
+          <span id="lightbox-depth" class="px-2.5 py-1 rounded-md bg-gray-800 text-cyan-300 font-bold">18m Depth</span>
+          <div class="admin-only flex items-center gap-2">
+            <button id="lightbox-edit-btn" class="text-cyan-400 hover:text-cyan-300 font-bold flex items-center gap-1 px-2 py-1 rounded bg-gray-800 border border-cyan-500/30">
+              <i class="fa-solid fa-pen"></i> Edit
+            </button>
+            <button id="lightbox-delete-btn" class="text-red-400 hover:text-red-300 font-bold flex items-center gap-1 px-2 py-1 rounded bg-gray-800 border border-red-500/30">
+              <i class="fa-solid fa-trash"></i> Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT ENGINE -->
+  <script>
+    let db;
+    const DB_NAME = 'FroyidDivingPortfolioDB_v3';
+    const DB_VERSION = 1;
+    const ADMIN_PASSCODE = '1234'; // Change this passcode if you like!
+
+    let clickCount = 0;
+    let clickTimer = null;
+
+    // Secret Triple-Click Handler to Unlock Admin Mode
+    function handleBrandClick() {
+      clickCount++;
+      if (clickCount === 1) {
+        clickTimer = setTimeout(() => { clickCount = 0; }, 1000);
+      } else if (clickCount >= 3) {
+        clearTimeout(clickTimer);
+        clickCount = 0;
+        
+        if (document.body.classList.contains('admin-active')) {
+          lockAdminMode();
+        } else {
+          const pin = prompt("Enter Admin Passcode:");
+          if (pin === ADMIN_PASSCODE) {
+            document.body.classList.add('admin-active');
+            alert("Admin Mode Unlocked! You can now upload and edit content.");
+          } else if (pin !== null) {
+            alert("Incorrect passcode!");
+          }
+        }
+      }
+    }
+
+    function lockAdminMode(e) {
+      if (e) e.stopPropagation();
+      document.body.classList.remove('admin-active');
+      alert("Admin Mode Locked. Website is now in Public View Mode.");
+    }
+
+    function initDB() {
+      return new Promise((resolve, reject) => {
+        const request = indexedDB.open(DB_NAME, DB_VERSION);
+        request.onupgradeneeded = (e) => {
+          const db = e.target.result;
+          if (!db.objectStoreNames.contains('media')) db.createObjectStore('media', { keyPath: 'id' });
+          if (!db.objectStoreNames.contains('logs')) db.createObjectStore('logs', { keyPath: 'id' });
+          if (!db.objectStoreNames.contains('stories')) db.createObjectStore('stories', { keyPath: 'id' });
+          if (!db.objectStoreNames.contains('profile')) db.createObjectStore('profile', { keyPath: 'id' });
+        };
+        request.onsuccess = (e) => {
+          db = e.target.result;
+          resolve(db);
+        };
+        request.onerror = (e) => reject(e);
+      });
+    }
+
+    function getAllItems(storeName) {
+      return new Promise((resolve) => {
+        const transaction = db.transaction(storeName, 'readonly');
+        const store = transaction.objectStore(storeName);
+        const request = store.getAll();
+        request.onsuccess = () => resolve(request.result || []);
+      });
+    }
+
+    function getItemById(storeName, id) {
+      return new Promise((resolve) => {
+        const transaction = db.transaction(storeName, 'readonly');
+        const store = transaction.objectStore(storeName);
+        const request = store.get(id);
+        request.onsuccess = () => resolve(request.result);
+      });
+    }
+
+    function saveItem(storeName, item) {
+      return new Promise((resolve) => {
+        const transaction = db.transaction(storeName, 'readwrite');
+        const store = transaction.objectStore(storeName);
+        store.put(item);
+        transaction.oncomplete = () => resolve();
+      });
+    }
+
+    function deleteItemFromDB(storeName, id) {
+      return new Promise((resolve) => {
+        const transaction = db.transaction(storeName, 'readwrite');
+        const store = transaction.objectStore(storeName);
+        store.delete(id);
+        transaction.oncomplete = () => resolve();
+      });
+    }
+
+    function getMediaUrl(item) {
+      if (!item) return '';
+      if (item.fileBlob) {
+        return URL.createObjectURL(item.fileBlob);
+      }
+      return item.src || '';
+    }
+
+    const defaultProfile = {
+      id: 'main_profile',
+      name: 'Froyid Puthenpurackal Antony',
+      badge: 'Class 2 Air Diver',
+      tagline: 'Marine Construction • Power-Plant Intakes • Ship Maintenance • Coral Translocation',
+      bio: 'Commercial air diver with 4+ years of experience across marine construction, power-plant intake operations, and ship maintenance in India and Qatar. Experienced in tetrapod placement, HDPE pipeline laying, airlift debris removal, and Broco cutting.',
+      location: 'Kerala, India',
+      gear: 'KMB-18B & Surface-Supply Equipment',
+      cert: 'Inter Dive Class 2 Air Diver (#2019)',
+      src: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=600&q=80'
+    };
+
+    const defaultLogs = [
+      { id: 1, title: 'Tetrapod Placement - Breakwater Construction', client: 'Ocean Tec', location: 'Veraval, Gujarat, India', depth: '18m', gear: 'Surface-Supply / Air Diving', notes: 'Carried out tetrapod placement for breakwater construction works. Supported underwater positioning and stability checks in nearshore conditions.' },
+      { id: 2, title: 'Temporary Jetty Project - Block Placement', client: 'Marine Construction', location: 'Chennai, Tamil Nadu', depth: '14m', gear: 'Air Diving Equipment', notes: 'Underwater block placement for a temporary jetty at a water distillation plant. Coordinated with surface crane teams following HSE procedures.' },
+      { id: 3, title: 'Power Plant Intake & HDPE Pipeline Laying', client: 'Tecotrex & QEWC', location: 'Ras Abu Fontas, Qatar', depth: '22m', gear: 'KMB-18B / Surface Supply', notes: 'Laid HDPE pipelines for main intake chlorination system. Cleared debris from drum screens using airlift and suction extraction.' },
+      { id: 4, title: 'ZSI-IOCL Coral Translocation Expedition', client: 'Zoological Survey of India', location: 'Narara Reef, Gulf of Kachchh', depth: '12m', gear: 'Scientific SCUBA / Air', notes: 'Relocated live coral colonies to designated reef sites following scientific and ecological guidelines.' }
+    ];
+
+    const defaultMedia = [
+      { id: 101, type: 'image', target: 'feed', src: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=800&q=80', location: 'Veraval, Gujarat', depth: '18m', caption: 'Tetrapod positioning and alignment check for breakwater construction.' },
+      { id: 102, type: 'image', target: 'feed', src: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80', location: 'Ras Abu Fontas, Qatar', depth: '22m', caption: 'Airlift suction operation clearing marine growth at power plant intake.' },
+      { id: 103, type: 'image', target: 'feed', src: 'https://images.unsplash.com/photo-1582967788606-a171c1080cb0?auto=format&fit=crop&w=800&q=80', location: 'Narara Reef, Gujarat', depth: '12m', caption: 'Coral translocation project under Zoological Survey of India guidelines.' },
+      { id: 104, type: 'image', target: 'feed', src: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=800&q=80', location: 'Kochi, India', depth: '15m', caption: 'Underwater propeller polishing and hull inspection with Interdive Pvt. Ltd.' },
+      { id: 105, type: 'image', target: 'reels', src: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=800&q=80', location: 'Ras Abu Fontas, Qatar', depth: '22m', caption: 'Vertical Short: Deep sea intake pipe inspection video reel.' },
+      { id: 106, type: 'image', target: 'reels', src: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80', location: 'Veraval, Gujarat', depth: '18m', caption: 'Vertical Short: Tetrapod placement helmet cam footage.' }
+    ];
+
+    const defaultStories = [
+      { id: 201, title: 'Coral Translocation at Narara Reef', src: 'https://images.unsplash.com/photo-1582967788606-a171c1080cb0?auto=format&fit=crop&w=800&q=80', body: 'Working on the Government of India-approved ZSI-IOCL project involved precision removal, underwater transport, and tagging of delicate coral species to preserve marine ecosystems during industrial port developments.' },
+      { id: 202, title: 'Power Plant Intake Airlift Cleaning in Qatar', src: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80', body: 'Intake systems at seawater power plants require regular clearing. Using airlift suction equipment at depths of 22m ensured drum screens remained free of silt and marine debris for continuous cooling operations.' }
+    ];
+
+    window.addEventListener('DOMContentLoaded', async () => {
+      await initDB();
+
+      const profile = await getAllItems('profile');
+      if (profile.length === 0) {
+        await saveItem('profile', defaultProfile);
+        for (let item of defaultLogs) await saveItem('logs', item);
+        for (let item of defaultMedia) await saveItem('media', item);
+        for (let item of defaultStories) await saveItem('stories', item);
+      }
+
+      await renderAll();
+
+      window.addEventListener('click', (e) => {
+        if (e.target.classList.contains('modal-backdrop')) {
+          e.target.classList.add('hidden');
+          const vids = e.target.querySelectorAll('video');
+          vids.forEach(v => v.pause());
+        }
+      });
+    });
+
+    async function renderAll() {
+      await renderProfile();
+      await renderMedia();
+      await renderLogs();
+      await renderStories();
+    }
+
+    async function renderProfile() {
+      const p = (await getAllItems('profile'))[0] || defaultProfile;
+      document.getElementById('profile-name').innerText = p.name;
+      document.getElementById('profile-badge').innerText = p.badge;
+      document.getElementById('profile-tagline').innerText = p.tagline;
+      document.getElementById('profile-bio').innerText = p.bio;
+      document.getElementById('profile-location').innerHTML = `<i class="fa-solid fa-location-dot text-cyan-400 mr-1"></i> ${p.location}`;
+      document.getElementById('profile-gear').innerHTML = `<i class="fa-solid fa-mask-snorkel text-blue-400 mr-1"></i> ${p.gear}`;
+      document.getElementById('profile-cert').innerHTML = `<i class="fa-solid fa-shield-halved text-indigo-400 mr-1"></i> ${p.cert}`;
+      
+      const avatarUrl = getMediaUrl(p);
+      if (avatarUrl) document.getElementById('profile-avatar').src = avatarUrl;
+
+      document.getElementById('edit-name').value = p.name;
+      document.getElementById('edit-badge').value = p.badge;
+      document.getElementById('edit-tagline').value = p.tagline;
+      document.getElementById('edit-bio').value = p.bio;
+      document.getElementById('edit-location').value = p.location;
+      document.getElementById('edit-gear').value = p.gear;
+    }
+
+    async function renderMedia() {
+      const items = await getAllItems('media');
+      const feedGrid = document.getElementById('media-grid');
+      const reelsGrid = document.getElementById('reels-container');
+      
+      feedGrid.innerHTML = '';
+      reelsGrid.innerHTML = '';
+
+      const feedItems = items.filter(i => i.target !== 'reels');
+      const reelItems = items.filter(i => i.target === 'reels');
+
+      if (feedItems.length === 0) {
+        feedGrid.innerHTML = `<p class="col-span-full text-center text-gray-500 py-8 text-sm">No media in feed.</p>`;
+      }
+
+      if (reelItems.length === 0) {
+        reelsGrid.innerHTML = `
+          <div class="col-span-full glass-card rounded-2xl p-8 text-center border border-gray-800">
+            <i class="fa-solid fa-clapperboard text-4xl text-cyan-400 mb-3"></i>
+            <h4 class="text-lg font-bold text-white mb-1">No Reels or Shorts Uploaded Yet</h4>
+            <p class="text-xs text-gray-400 mb-4">Vertical underwater video clips will appear here.</p>
+            <button onclick="openUploadModalWithTarget('reels')" class="admin-only px-4 py-2 rounded-lg text-xs font-bold bg-cyan-400 text-black">
+              <i class="fa-solid fa-cloud-arrow-up mr-1"></i> Upload First Reel
+            </button>
+          </div>
+        `;
+      }
+
+      items.forEach(item => {
+        const url = getMediaUrl(item);
+        const card = document.createElement('div');
+        card.className = "relative group rounded-xl overflow-hidden glass-card cursor-pointer border border-gray-800 aspect-square";
+        
+        const mediaHtml = item.type === 'video'
+          ? `<video src="${url}" class="w-full h-full object-cover" muted loop playsinline onmouseover="this.play()" onmouseout="this.pause()"></video>
+             <span class="absolute top-2 right-2 bg-black/60 text-cyan-400 p-1.5 rounded-full text-xs"><i class="fa-solid fa-film"></i></span>`
+          : `<img src="${url}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">`;
+
+        card.innerHTML = `
+          ${mediaHtml}
+          <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 p-4 flex flex-col justify-between">
+            <div class="flex justify-between items-center text-xs">
+              <span class="px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 font-bold border border-cyan-500/30">${item.depth || 'Surface'}</span>
+              <div class="admin-only flex items-center gap-2">
+                <button onclick="openEditMediaModal(event, ${item.id})" class="text-cyan-400 hover:text-cyan-300 p-1" title="Edit Post"><i class="fa-solid fa-pen"></i></button>
+                <button onclick="deleteMedia(event, ${item.id})" class="text-red-400 hover:text-red-300 p-1" title="Delete Post"><i class="fa-solid fa-trash"></i></button>
+              </div>
+            </div>
+            <div>
+              <p class="text-xs font-bold text-white"><i class="fa-solid fa-location-dot text-cyan-400 mr-1"></i>${item.location || 'Site Operation'}</p>
+              <p class="text-[11px] text-gray-300 line-clamp-1 mt-0.5">${item.caption || ''}</p>
+            </div>
+          </div>
+        `;
+
+        card.onclick = (e) => {
+          if (!e.target.closest('button')) openLightbox(item);
+        };
+
+        if (item.target === 'reels') {
+          reelsGrid.appendChild(card);
+        } else {
+          feedGrid.appendChild(card);
+        }
+      });
+    }
+
+    async function renderLogs() {
+      const logs = await getAllItems('logs');
+      const container = document.getElementById('logs-container');
+      container.innerHTML = '';
+
+      if (logs.length === 0) {
+        container.innerHTML = `<p class="text-center text-gray-500 py-8 text-sm">No dive logs added yet.</p>`;
+        return;
+      }
+
+      logs.forEach(log => {
+        const item = document.createElement('div');
+        item.className = "glass-card rounded-xl p-5 border border-gray-800 relative hover:border-cyan-500/40 transition cursor-pointer";
+        item.innerHTML = `
+          <div class="flex justify-between items-start">
+            <div>
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 uppercase">${log.client || 'Commercial Project'}</span>
+              <h4 class="text-base font-bold text-white mt-1">${log.title}</h4>
+              <p class="text-xs text-gray-400"><i class="fa-solid fa-location-dot text-cyan-400 mr-1"></i>${log.location} • Depth: <strong class="text-cyan-300">${log.depth}</strong></p>
+            </div>
+            <div class="admin-only flex items-center gap-2">
+              <button onclick="openEditLogModal(event, ${log.id})" class="text-cyan-400 hover:text-cyan-300 text-sm p-1"><i class="fa-solid fa-pen"></i></button>
+              <button onclick="deleteLog(event, ${log.id})" class="text-gray-500 hover:text-red-400 text-sm p-1"><i class="fa-solid fa-trash"></i></button>
+            </div>
+          </div>
+          <p class="text-xs text-gray-300 mt-3 line-clamp-2 leading-relaxed">${log.notes}</p>
+          <div class="mt-3 text-[11px] text-gray-400 font-mono bg-gray-900/60 p-2 rounded border border-gray-800 flex justify-between items-center">
+            <span><i class="fa-solid fa-screwdriver-wrench text-blue-400 mr-1"></i> ${log.gear}</span>
+            <span class="text-cyan-400 font-bold">View Details →</span>
+          </div>
+        `;
+        item.onclick = (e) => {
+          if (!e.target.closest('button')) openLogModal(log);
+        };
+        container.appendChild(item);
+      });
+    }
+
+    async function renderStories() {
+      const stories = await getAllItems('stories');
+      const container = document.getElementById('stories-container');
+      container.innerHTML = '';
+
+      if (stories.length === 0) {
+        container.innerHTML = `<p class="col-span-full text-center text-gray-500 py-8 text-sm">No stories published yet.</p>`;
+        return;
+      }
+
+      stories.forEach(s => {
+        const url = getMediaUrl(s);
+        const card = document.createElement('div');
+        card.className = "glass-card rounded-xl overflow-hidden border border-gray-800 flex flex-col justify-between hover:border-cyan-500/40 transition cursor-pointer";
+        card.innerHTML = `
+          <div>
+            <img src="${url}" class="w-full h-48 object-cover">
+            <div class="p-5">
+              <h4 class="text-base font-bold text-white mb-2">${s.title}</h4>
+              <p class="text-xs text-gray-300 line-clamp-3 leading-relaxed">${s.body}</p>
+            </div>
+          </div>
+          <div class="px-5 pb-4 flex justify-between items-center text-xs border-t border-gray-800/60 pt-3">
+            <span class="text-cyan-400 font-semibold">Read Full Article →</span>
+            <div class="admin-only flex items-center gap-3">
+              <button onclick="openEditStoryModal(event, ${s.id})" class="text-cyan-400 hover:text-cyan-300"><i class="fa-solid fa-pen mr-1"></i> Edit</button>
+              <button onclick="deleteStory(event, ${s.id})" class="text-red-400 hover:text-red-300"><i class="fa-solid fa-trash mr-1"></i> Delete</button>
+            </div>
+          </div>
+        `;
+        card.onclick = (e) => {
+          if (!e.target.closest('button')) openStoryReader(s);
+        };
+        container.appendChild(card);
+      });
+    }
+
+    // FORM HANDLERS
+    document.getElementById('form-edit-profile').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const p = (await getAllItems('profile'))[0] || defaultProfile;
+      p.name = document.getElementById('edit-name').value;
+      p.badge = document.getElementById('edit-badge').value;
+      p.tagline = document.getElementById('edit-tagline').value;
+      p.bio = document.getElementById('edit-bio').value;
+      p.location = document.getElementById('edit-location').value;
+      p.gear = document.getElementById('edit-gear').value;
+
+      const fileInput = document.getElementById('edit-avatar-file');
+      if (fileInput.files[0]) {
+        p.fileBlob = fileInput.files[0];
+      }
+
+      await saveItem('profile', p);
+      await renderProfile();
+      closeModal('edit-profile-modal');
+    });
+
+    document.getElementById('form-upload-media').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const file = document.getElementById('upload-file').files[0];
+      if (!file) return;
+
+      const newItem = {
+        id: Date.now(),
+        type: file.type.startsWith('video') ? 'video' : 'image',
+        target: document.getElementById('upload-target').value,
+        depth: document.getElementById('upload-depth').value || '15m',
+        location: document.getElementById('upload-location').value || 'Kerala, India',
+        caption: document.getElementById('upload-caption').value || '',
+        fileBlob: file
+      };
+
+      await saveItem('media', newItem);
+      await renderMedia();
+      document.getElementById('form-upload-media').reset();
+      closeModal('upload-modal');
+    });
+
+    document.getElementById('form-edit-media').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const id = parseInt(document.getElementById('edit-media-id').value);
+      const item = await getItemById('media', id);
+      if (!item) return;
+
+      item.target = document.getElementById('edit-media-target').value;
+      item.depth = document.getElementById('edit-media-depth').value;
+      item.location = document.getElementById('edit-media-location').value;
+      item.caption = document.getElementById('edit-media-caption').value;
+
+      const newFile = document.getElementById('edit-media-file').files[0];
+      if (newFile) {
+        item.fileBlob = newFile;
+        item.type = newFile.type.startsWith('video') ? 'video' : 'image';
+      }
+
+      await saveItem('media', item);
+      await renderMedia();
+      closeModal('edit-media-modal');
+    });
+
+    document.getElementById('form-add-divelog').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const editId = document.getElementById('log-edit-id').value;
+      
+      const log = {
+        id: editId ? parseInt(editId) : Date.now(),
+        title: document.getElementById('log-title').value,
+        client: document.getElementById('log-client').value || 'Client',
+        location: document.getElementById('log-location').value || 'Location',
+        depth: document.getElementById('log-depth').value || '15m',
+        gear: document.getElementById('log-gear').value || 'KMB-18B',
+        notes: document.getElementById('log-notes').value || ''
+      };
+
+      await saveItem('logs', log);
+      await renderLogs();
+      document.getElementById('form-add-divelog').reset();
+      document.getElementById('log-edit-id').value = '';
+      closeModal('divelog-modal');
+    });
+
+    document.getElementById('form-add-story').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const editId = document.getElementById('story-edit-id').value;
+      const file = document.getElementById('story-file').files[0];
+
+      let story = editId ? await getItemById('stories', parseInt(editId)) : { id: Date.now() };
+      
+      story.title = document.getElementById('story-title').value;
+      story.body = document.getElementById('story-body').value;
+
+      if (file) {
+        story.fileBlob = file;
+      } else if (!story.src && !story.fileBlob) {
+        story.src = 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=800&q=80';
+      }
+
+      await saveItem('stories', story);
+      await renderStories();
+      document.getElementById('form-add-story').reset();
+      document.getElementById('story-edit-id').value = '';
+      closeModal('story-modal');
+    });
+
+    async function openEditMediaModal(e, id) {
+      if (e) e.stopPropagation();
+      const item = await getItemById('media', id);
+      if (!item) return;
+
+      document.getElementById('edit-media-id').value = item.id;
+      document.getElementById('edit-media-target').value = item.target || 'feed';
+      document.getElementById('edit-media-depth').value = item.depth || '';
+      document.getElementById('edit-media-location').value = item.location || '';
+      document.getElementById('edit-media-caption').value = item.caption || '';
+      document.getElementById('edit-media-file').value = '';
+
+      openModal('edit-media-modal');
+    }
+
+    async function openEditLogModal(e, id) {
+      if (e) e.stopPropagation();
+      const log = await getItemById('logs', id);
+      if (!log) return;
+
+      document.getElementById('log-modal-heading').innerText = 'Edit Commercial Dive Log';
+      document.getElementById('log-edit-id').value = log.id;
+      document.getElementById('log-title').value = log.title;
+      document.getElementById('log-client').value = log.client;
+      document.getElementById('log-location').value = log.location;
+      document.getElementById('log-depth').value = log.depth;
+      document.getElementById('log-gear').value = log.gear;
+      document.getElementById('log-notes').value = log.notes;
+
+      openModal('divelog-modal');
+    }
+
+    async function openEditStoryModal(e, id) {
+      if (e) e.stopPropagation();
+      const story = await getItemById('stories', id);
+      if (!story) return;
+
+      document.getElementById('story-modal-heading').innerText = 'Edit Article / Story';
+      document.getElementById('story-edit-id').value = story.id;
+      document.getElementById('story-title').value = story.title;
+      document.getElementById('story-body').value = story.body;
+
+      openModal('story-modal');
+    }
+
+    function openUploadModalWithTarget(target) {
+      document.getElementById('upload-target').value = target;
+      openModal('upload-modal');
+    }
+
+    async function deleteMedia(e, id) {
+      if (e) e.stopPropagation();
+      if (confirm('Delete this media post?')) {
+        await deleteItemFromDB('media', id);
+        await renderMedia();
+      }
+    }
+
+    async function deleteLog(e, id) {
+      if (e) e.stopPropagation();
+      if (confirm('Delete this dive log entry?')) {
+        await deleteItemFromDB('logs', id);
+        await renderLogs();
+      }
+    }
+
+    async function deleteStory(e, id) {
+      if (e) e.stopPropagation();
+      if (confirm('Delete this story article?')) {
+        await deleteItemFromDB('stories', id);
+        await renderStories();
+      }
+    }
+
+    function openLightbox(item) {
+      const container = document.getElementById('lightbox-media-container');
+      const url = getMediaUrl(item);
+
+      if (item.type === 'video') {
+        container.innerHTML = `<video src="${url}" controls autoplay class="max-h-[70vh] w-full object-contain"></video>`;
+      } else {
+        container.innerHTML = `<img src="${url}" class="max-h-[70vh] w-full object-contain">`;
+      }
+
+      document.getElementById('lightbox-location').innerText = item.location || 'Site Operation';
+      document.getElementById('lightbox-caption').innerText = item.caption || 'No caption provided.';
+      document.getElementById('lightbox-depth').innerText = `${item.depth || 'Surface'} Depth`;
+      
+      document.getElementById('lightbox-edit-btn').onclick = (e) => {
+        closeModal('lightbox-modal');
+        openEditMediaModal(e, item.id);
+      };
+
+      document.getElementById('lightbox-delete-btn').onclick = async (e) => {
+        await deleteMedia(e, item.id);
+        closeModal('lightbox-modal');
+      };
+
+      openModal('lightbox-modal');
+    }
+
+    function openStoryReader(story) {
+      document.getElementById('reader-title').innerText = story.title;
+      document.getElementById('reader-body').innerText = story.body;
+      document.getElementById('reader-img').src = getMediaUrl(story);
+      
+      document.getElementById('reader-edit-btn').onclick = (e) => {
+        closeModal('story-reader-modal');
+        openEditStoryModal(e, story.id);
+      };
+
+      openModal('story-reader-modal');
+    }
+
+    function openLogModal(log) {
+      document.getElementById('log-detail-title').innerText = log.title;
+      document.getElementById('log-detail-client').innerText = log.client;
+      document.getElementById('log-detail-location').innerText = log.location;
+      document.getElementById('log-detail-depth').innerText = log.depth;
+      document.getElementById('log-detail-gear').innerText = log.gear;
+      document.getElementById('log-detail-notes').innerText = log.notes;
+      
+      document.getElementById('log-detail-edit-btn').onclick = (e) => {
+        closeModal('log-detail-modal');
+        openEditLogModal(e, log.id);
+      };
+
+      openModal('log-detail-modal');
+    }
+
+    function switchTab(tabKey) {
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active', 'border-cyan-400', 'text-cyan-400');
+        btn.classList.add('border-transparent', 'text-gray-400');
+      });
+      document.querySelectorAll('.tab-section').forEach(sec => sec.classList.add('hidden'));
+
+      const activeBtn = document.getElementById(`tab-${tabKey}`);
+      activeBtn.classList.add('active', 'border-cyan-400', 'text-cyan-400');
+      activeBtn.classList.remove('border-transparent', 'text-gray-400');
+
+      document.getElementById(`section-${tabKey}`).classList.remove('hidden');
+    }
+
+    function openModal(id) {
+      document.getElementById(id).classList.remove('hidden');
+    }
+
+    function closeModal(id) {
+      const modal = document.getElementById(id);
+      modal.classList.add('hidden');
+      const vids = modal.querySelectorAll('video');
+      vids.forEach(v => v.pause());
+    }
+  </script>
+</body>
+</html>
